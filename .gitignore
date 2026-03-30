@@ -1,0 +1,18 @@
+# Virtual environment
+myenv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Generated output (re-create by running the pipeline)
+output/
+
+# Large OSM data files (too big for GitHub)
+planet_*.osm
+*.osm.gz
+
+# OS files
+.DS_Store
+Thumbs.db
