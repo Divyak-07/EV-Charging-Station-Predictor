@@ -371,18 +371,19 @@ EV ZONES
 
 The ML pipeline in `ev_ml_predictor.py` works as follows:
 
-1. **Grid cells** — the OSM bounding box is divided into ~111m grid cells
-2. **Feature extraction** — for each cell, 23 spatial features are computed:
-   - Road access by type (primary/secondary/tertiary/residential/service)
+1. **Training Data Generation (Requires Internet)** — Run with `--train` to query real EV station locations from the `csv` file.
+   - The script queries the free Overpass API for OSM features within ~500m of known EV sites in multiple Indian cities.
+   - It also generates offset "negative" samples (areas far from known EVs).
+   - This data is cached to `output/training_data.csv` for fast iteration.
+2. **Feature extraction** — for each point, 23 spatial features are computed:
+   - Road access by type (primary, secondary, tertiary, residential, service)
    - Nearby amenities (parking, university, hospital, restaurants, banks, etc.)
    - Land use (education, commercial, residential, recreation)
-   - Building density, node density, existing EV station proximity
-3. **Training labels** — grid cells are labelled positive if a known EV station
-   from the CSV falls within ~220m. If no stations exist in the map area,
-   synthetic labels are generated from the top 15% of heuristic-scored cells
-4. **Random Forest** — 300 trees, max depth 8, balanced class weights
-5. **Cross-validation** — 5-fold stratified CV with ROC-AUC scoring
-6. **Output** — probability map, feature importance chart, ranked candidates
+   - Building density, node density, POI counts
+3. **Random Forest** — 300 trees, max depth 10, balanced class weights.
+4. **Cross-validation** — 5-fold stratified CV with ROC-AUC scoring.
+5. **Prediction** — Once trained (or by loading `ev_model.joblib`), the local `.osm` map is grid-split and predicted upon completely offline.
+6. **Output** — Suitability probability map, feature importance chart, and ranked EV candidates in JSON.
 
 ---
 
