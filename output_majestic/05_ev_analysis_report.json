@@ -1,0 +1,428 @@
+{
+  "campus": "Banaras Hindu University (BHU), Varanasi, UP, India",
+  "bounds": {
+    "minlat": 12.97,
+    "minlon": 77.56,
+    "maxlat": 12.985,
+    "maxlon": 77.585
+  },
+  "total_ways": 6646,
+  "total_nodes": 33169,
+  "data_notes": [
+    "Campus boundary (amenity=university, 126 nodes) rendered as outline only — not filled.",
+    "building=yes with no further tags classified as 'Building (Unclassified)'.",
+    "EV score based on road access, amenity type, building function, and name keywords.",
+    "Height data sparse — most buildings use default heights by category.",
+    "Some features may be misclassified if OSM tags are incomplete or absent."
+  ],
+  "high_ev_zones": [
+    {
+      "name": "Bangalore Medical College Gents Hostel",
+      "score": 0.65,
+      "lat": 12.976489,
+      "lon": 77.582816,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Freedom Park MLCP",
+      "score": 0.65,
+      "lat": 12.977963,
+      "lon": 77.581274,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Cottonpete Main Road",
+      "score": 0.6,
+      "lat": 12.974375,
+      "lon": 77.570485,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Cottonpete Main Road",
+      "score": 0.6,
+      "lat": 12.974678,
+      "lon": 77.570445,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Cottonpete Main Road",
+      "score": 0.6,
+      "lat": 12.972134,
+      "lon": 77.570303,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Cottonpete Main Road",
+      "score": 0.6,
+      "lat": 12.969636,
+      "lon": 77.570231,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Rajajinagar Entrance Underpass",
+      "score": 0.6,
+      "lat": 12.982879,
+      "lon": 77.561004,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Rajajinagar Entrance Underpass",
+      "score": 0.6,
+      "lat": 12.98287,
+      "lon": 77.560848,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Rajajinagar Entrance Underpass",
+      "score": 0.6,
+      "lat": 12.983326,
+      "lon": 77.560313,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Rajajinagar Entrance Underpass",
+      "score": 0.6,
+      "lat": 12.983257,
+      "lon": 77.560271,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Rajajinagar Entrance Underpass",
+      "score": 0.6,
+      "lat": 12.983454,
+      "lon": 77.559482,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Rajajinagar Entrance Underpass",
+      "score": 0.6,
+      "lat": 12.983532,
+      "lon": 77.559397,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Bangalore Turf Club Parking",
+      "score": 0.55,
+      "lat": 12.984575,
+      "lon": 77.583244,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Bike Parking",
+      "score": 0.55,
+      "lat": 12.978777,
+      "lon": 77.570405,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Visitor's Parking",
+      "score": 0.55,
+      "lat": 12.973053,
+      "lon": 77.566196,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Sri Jayachamarajendra Government Polytechnic",
+      "score": 0.5,
+      "lat": 12.978097,
+      "lon": 77.58625,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Nrupathunga University",
+      "score": 0.5,
+      "lat": 12.973634,
+      "lon": 77.585107,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Sultanpete Main Road",
+      "score": 0.48,
+      "lat": 12.969896,
+      "lon": 77.571473,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "5th Main Road",
+      "score": 0.48,
+      "lat": 12.984891,
+      "lon": 77.568046,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "2nd Main Road",
+      "score": 0.48,
+      "lat": 12.985196,
+      "lon": 77.562859,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Government Ayurvedic Medical College",
+      "score": 0.45,
+      "lat": 12.979486,
+      "lon": 77.573549,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Hospital Road",
+      "score": 0.43,
+      "lat": 12.972841,
+      "lon": 77.578657,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Hospital Road",
+      "score": 0.43,
+      "lat": 12.973526,
+      "lon": 77.576885,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Palace Road",
+      "score": 0.4,
+      "lat": 12.981312,
+      "lon": 77.586448,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Palace Road",
+      "score": 0.4,
+      "lat": 12.98122,
+      "lon": 77.586298,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "St Marthas Hospital",
+      "score": 0.4,
+      "lat": 12.970799,
+      "lon": 77.585672,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Sheshadri Road",
+      "score": 0.4,
+      "lat": 12.977036,
+      "lon": 77.585582,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Sheshadri Road",
+      "score": 0.4,
+      "lat": 12.977385,
+      "lon": 77.585252,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Race Course Road",
+      "score": 0.4,
+      "lat": 12.984109,
+      "lon": 77.585101,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Race Course Road",
+      "score": 0.4,
+      "lat": 12.984006,
+      "lon": 77.584873,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Kempegowda Road",
+      "score": 0.4,
+      "lat": 12.970028,
+      "lon": 77.584833,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Maharani College Underpass",
+      "score": 0.4,
+      "lat": 12.97844,
+      "lon": 77.584707,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Maharani College Underpass",
+      "score": 0.4,
+      "lat": 12.978471,
+      "lon": 77.584647,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Sheshadri Road",
+      "score": 0.4,
+      "lat": 12.977696,
+      "lon": 77.584633,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Maharani College Underpass",
+      "score": 0.4,
+      "lat": 12.97793,
+      "lon": 77.584428,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Maharani College Underpass",
+      "score": 0.4,
+      "lat": 12.977959,
+      "lon": 77.584375,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Maharani College Underpass",
+      "score": 0.4,
+      "lat": 12.977399,
+      "lon": 77.584132,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Maharani College Underpass",
+      "score": 0.4,
+      "lat": 12.977417,
+      "lon": 77.584077,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Sheshadri Road",
+      "score": 0.4,
+      "lat": 12.978748,
+      "lon": 77.583047,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Sheshadri Road",
+      "score": 0.4,
+      "lat": 12.978903,
+      "lon": 77.583018,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Hare Krishna Road",
+      "score": 0.4,
+      "lat": 12.984511,
+      "lon": 77.582631,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Race Course Road",
+      "score": 0.4,
+      "lat": 12.984443,
+      "lon": 77.582586,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Palace Road",
+      "score": 0.4,
+      "lat": 12.97517,
+      "lon": 77.582486,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Hare Krishna Road",
+      "score": 0.4,
+      "lat": 12.984578,
+      "lon": 77.582427,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Hare Krishna Road",
+      "score": 0.4,
+      "lat": 12.98448,
+      "lon": 77.582285,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Race Course Road",
+      "score": 0.4,
+      "lat": 12.984366,
+      "lon": 77.58223,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Hare Krishna Road",
+      "score": 0.4,
+      "lat": 12.984516,
+      "lon": 77.582019,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Shivananda Circle Flyover",
+      "score": 0.4,
+      "lat": 12.984908,
+      "lon": 77.582015,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Palace Road",
+      "score": 0.4,
+      "lat": 12.974346,
+      "lon": 77.582013,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Shivananda Circle Flyover",
+      "score": 0.4,
+      "lat": 12.984836,
+      "lon": 77.581964,
+      "priority": "MEDIUM"
+    }
+  ],
+  "road_type_counts": {
+    "tertiary": 67,
+    "primary": 129,
+    "residential": 568,
+    "secondary": 74,
+    "service": 432,
+    "footway": 502,
+    "secondary_link": 14,
+    "living_street": 29,
+    "primary_link": 50,
+    "steps": 107,
+    "unclassified": 5,
+    "path": 63,
+    "cycleway": 1,
+    "tertiary_link": 1,
+    "bus_stop": 1,
+    "pedestrian": 1
+  },
+  "building_type_counts": {
+    "transportation": 8,
+    "college": 10,
+    "office": 8,
+    "commercial": 27,
+    "yes": 3711,
+    "university": 8,
+    "apartments": 34,
+    "roof": 53,
+    "train_station": 7,
+    "retail": 5,
+    "cinema": 2,
+    "school": 2,
+    "hotel": 5,
+    "terrace": 1,
+    "industrial": 2,
+    "house": 5,
+    "temple": 5,
+    "church": 1,
+    "fire_station": 1,
+    "service": 1,
+    "bank": 1,
+    "construction": 2,
+    "warehouse": 1,
+    "hospital": 1,
+    "parking": 1
+  },
+  "landuse_counts": {
+    "industrial": 10,
+    "education": 5,
+    "commercial": 58,
+    "railway": 5,
+    "residential": 33,
+    "recreation_ground": 4,
+    "retail": 12,
+    "religious": 4,
+    "construction": 11,
+    "grass": 7,
+    "garages": 4
+  }
+}

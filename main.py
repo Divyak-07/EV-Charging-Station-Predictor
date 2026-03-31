@@ -114,6 +114,9 @@ def run_ml_predictor(osm_path, csv_path, output_dir, do_train=False):
         ev_df.columns = [c.strip().lower() for c in ev_df.columns]
         if "lattitude" in ev_df.columns:
             ev_df.rename(columns={"lattitude": "latitude"}, inplace=True)
+        ev_df["latitude"] = pd.to_numeric(ev_df["latitude"], errors="coerce")
+        ev_df["longitude"] = pd.to_numeric(ev_df["longitude"], errors="coerce")
+        ev_df = ev_df.dropna(subset=["latitude", "longitude"])
 
     dedup = save_prediction_map(cells, probs, bbox, ways, output_dir, ev_df)
     save_feature_importance(clf, output_dir)

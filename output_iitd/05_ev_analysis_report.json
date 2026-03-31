@@ -1,0 +1,345 @@
+{
+  "campus": "Banaras Hindu University (BHU), Varanasi, UP, India",
+  "bounds": {
+    "minlat": 28.535,
+    "minlon": 77.185,
+    "maxlat": 28.548,
+    "maxlon": 77.2
+  },
+  "total_ways": 1038,
+  "total_nodes": 6957,
+  "data_notes": [
+    "Campus boundary (amenity=university, 126 nodes) rendered as outline only — not filled.",
+    "building=yes with no further tags classified as 'Building (Unclassified)'.",
+    "EV score based on road access, amenity type, building function, and name keywords.",
+    "Height data sparse — most buildings use default heights by category.",
+    "Some features may be misclassified if OSM tags are incomplete or absent."
+  ],
+  "high_ev_zones": [
+    {
+      "name": "Visitors Parking",
+      "score": 0.55,
+      "lat": 28.545632,
+      "lon": 77.186585,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Residents' Parking",
+      "score": 0.55,
+      "lat": 28.538885,
+      "lon": 77.185429,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Visitors' parking",
+      "score": 0.55,
+      "lat": 28.540117,
+      "lon": 77.1849,
+      "priority": "HIGH"
+    },
+    {
+      "name": "IIT Hospital",
+      "score": 0.5,
+      "lat": 28.545521,
+      "lon": 77.188546,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "IIT Flyover",
+      "score": 0.4,
+      "lat": 28.544858,
+      "lon": 77.200913,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "IIT Flyover",
+      "score": 0.4,
+      "lat": 28.544783,
+      "lon": 77.200864,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "IIT Flyover",
+      "score": 0.4,
+      "lat": 28.545349,
+      "lon": 77.199128,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "IIT Flyover",
+      "score": 0.4,
+      "lat": 28.545277,
+      "lon": 77.199089,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "IIT Flyover",
+      "score": 0.4,
+      "lat": 28.545582,
+      "lon": 77.198225,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "IIT Flyover",
+      "score": 0.4,
+      "lat": 28.545487,
+      "lon": 77.198176,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "",
+      "score": 0.4,
+      "lat": 28.536306,
+      "lon": 77.197471,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "",
+      "score": 0.4,
+      "lat": 28.536241,
+      "lon": 77.19743,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Shaheed Jeet Singh Marg",
+      "score": 0.4,
+      "lat": 28.536369,
+      "lon": 77.197324,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Shaheed Jeet Singh Marg",
+      "score": 0.4,
+      "lat": 28.536349,
+      "lon": 77.197176,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Outer Ring Road",
+      "score": 0.4,
+      "lat": 28.547043,
+      "lon": 77.19339,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Outer Ring Road",
+      "score": 0.4,
+      "lat": 28.547186,
+      "lon": 77.192517,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Shaheed Jeet Singh Marg",
+      "score": 0.4,
+      "lat": 28.538191,
+      "lon": 77.192214,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Shaheed Jeet Singh Marg",
+      "score": 0.4,
+      "lat": 28.538362,
+      "lon": 77.191955,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Shaheed Jeet Singh Marg",
+      "score": 0.4,
+      "lat": 28.539674,
+      "lon": 77.188315,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Shaheed Jeet Singh Marg",
+      "score": 0.4,
+      "lat": 28.539602,
+      "lon": 77.188253,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Shaheed Jeet Singh Marg",
+      "score": 0.4,
+      "lat": 28.539779,
+      "lon": 77.187999,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Shaheed Jeet Singh Marg",
+      "score": 0.4,
+      "lat": 28.540148,
+      "lon": 77.186245,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Shaheed Jeet Singh Marg",
+      "score": 0.4,
+      "lat": 28.541711,
+      "lon": 77.183323,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "IIT Delhi Main road",
+      "score": 0.35,
+      "lat": 28.545708,
+      "lon": 77.19646,
+      "priority": "LOW"
+    },
+    {
+      "name": "IIT Delhi Main Road",
+      "score": 0.35,
+      "lat": 28.545531,
+      "lon": 77.19626,
+      "priority": "LOW"
+    },
+    {
+      "name": "IIT Delhi Main Road",
+      "score": 0.35,
+      "lat": 28.545577,
+      "lon": 77.196251,
+      "priority": "LOW"
+    },
+    {
+      "name": "IIT Delhi Main Road",
+      "score": 0.35,
+      "lat": 28.545487,
+      "lon": 77.196185,
+      "priority": "LOW"
+    },
+    {
+      "name": "IIT Delhi Main Road",
+      "score": 0.35,
+      "lat": 28.545566,
+      "lon": 77.196178,
+      "priority": "LOW"
+    },
+    {
+      "name": "IIT Delhi Main Road",
+      "score": 0.35,
+      "lat": 28.54545,
+      "lon": 77.195798,
+      "priority": "LOW"
+    },
+    {
+      "name": "Main Road NCERT",
+      "score": 0.35,
+      "lat": 28.538899,
+      "lon": 77.195694,
+      "priority": "LOW"
+    },
+    {
+      "name": "IIT Delhi Main Road",
+      "score": 0.35,
+      "lat": 28.545203,
+      "lon": 77.195366,
+      "priority": "LOW"
+    },
+    {
+      "name": "IIT Delhi Main Road",
+      "score": 0.35,
+      "lat": 28.545119,
+      "lon": 77.194824,
+      "priority": "LOW"
+    },
+    {
+      "name": "Main Road NCERT",
+      "score": 0.35,
+      "lat": 28.537867,
+      "lon": 77.193252,
+      "priority": "LOW"
+    },
+    {
+      "name": "IIT Delhi Main Road",
+      "score": 0.35,
+      "lat": 28.544404,
+      "lon": 77.192986,
+      "priority": "LOW"
+    },
+    {
+      "name": "IIT Delhi Main Road",
+      "score": 0.35,
+      "lat": 28.544448,
+      "lon": 77.192875,
+      "priority": "LOW"
+    },
+    {
+      "name": "",
+      "score": 0.35,
+      "lat": 28.545611,
+      "lon": 77.19258,
+      "priority": "LOW"
+    },
+    {
+      "name": "IIT Delhi Main Road",
+      "score": 0.35,
+      "lat": 28.54422,
+      "lon": 77.191242,
+      "priority": "LOW"
+    },
+    {
+      "name": "",
+      "score": 0.35,
+      "lat": 28.543908,
+      "lon": 77.191057,
+      "priority": "LOW"
+    },
+    {
+      "name": "Bharti School",
+      "score": 0.35,
+      "lat": 28.544893,
+      "lon": 77.189976,
+      "priority": "LOW"
+    },
+    {
+      "name": "IIT Delhi Main Road",
+      "score": 0.35,
+      "lat": 28.545333,
+      "lon": 77.188512,
+      "priority": "LOW"
+    },
+    {
+      "name": "",
+      "score": 0.35,
+      "lat": 28.544919,
+      "lon": 77.186088,
+      "priority": "LOW"
+    },
+    {
+      "name": "IIT Delhi Main Road",
+      "score": 0.35,
+      "lat": 28.54639,
+      "lon": 77.18597,
+      "priority": "LOW"
+    }
+  ],
+  "road_type_counts": {
+    "service": 189,
+    "secondary": 11,
+    "footway": 39,
+    "tertiary": 3,
+    "primary": 8,
+    "trunk": 11,
+    "residential": 94,
+    "path": 17,
+    "pedestrian": 5,
+    "secondary_link": 1,
+    "corridor": 4,
+    "steps": 4
+  },
+  "building_type_counts": {
+    "yes": 417,
+    "residential": 12,
+    "university": 20,
+    "hospital": 1,
+    "office": 1,
+    "school": 1,
+    "house": 2,
+    "apartments": 2,
+    "college": 1,
+    "service": 1
+  },
+  "landuse_counts": {
+    "residential": 12,
+    "grass": 13,
+    "education": 1
+  }
+}

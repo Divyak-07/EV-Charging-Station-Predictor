@@ -1,0 +1,42 @@
+{
+  "model": "RandomForestClassifier (trained on real multi-city data)",
+  "description": "ML-predicted EV charging station candidate locations",
+  "training_source": "Overpass API features around real EV stations from India CSV",
+  "top_candidates": [
+    {
+      "rank": 1,
+      "latitude": 12.9715,
+      "longitude": 77.5825,
+      "ml_score": 0.8111,
+      "priority_tier": "HIGH"
+    },
+    {
+      "rank": 2,
+      "latitude": 12.9755,
+      "longitude": 77.5795,
+      "ml_score": 0.7715,
+      "priority_tier": "HIGH"
+    },
+    {
+      "rank": 3,
+      "latitude": 12.9805,
+      "longitude": 77.5785,
+      "ml_score": 0.7715,
+      "priority_tier": "HIGH"
+    },
+    {
+      "rank": 4,
+      "latitude": 12.9805,
+      "longitude": 77.5815,
+      "ml_score": 0.7537,
+      "priority_tier": "HIGH"
+    },
+    {
+      "rank": 5,
+      "latitude": 12.9755,
+      "longitude": 77.5825,
+      "ml_score": 0.751,
+      "priority_tier": "HIGH"
+    }
+  ]
+}
