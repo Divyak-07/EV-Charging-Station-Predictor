@@ -7,9 +7,9 @@ Runs both pipelines in sequence:
   2. ML-based EV station prediction    (ev_ml_predictor.py)
 
 Usage:
-    python main.py
     python main.py --osm map.osm --csv ev-charging-stations-india.csv --output ./output
-    python main.py --osm map.osm --output ./output --skip-ml    # skip the ML step
+    python main.py --train --csv ev-charging-stations-india.csv    # train model only
+    python main.py --osm map.osm --skip-ml                        # classification only
 """
 
 import argparse
@@ -49,31 +49,78 @@ def run_multispectral(osm_path, output_dir):
     return report
 
 
-def run_ml_predictor(osm_path, csv_path, output_dir):
+def run_ml_predictor(osm_path, csv_path, output_dir, do_train=False):
     """Run the ML prediction pipeline."""
     print("\n" + "=" * 64)
     print("  PHASE 2: ML-Powered EV Station Prediction")
+    if do_train:
+        print("  MODE: Training on real multi-city data via Overpass API")
+    else:
+        print("  MODE: Predicting with saved model")
     print("=" * 64 + "\n")
 
-    from ev_ml_predictor import parse_osm, load_ev_stations, \
-        build_training_data, train_model, predict_map, \
-        save_prediction_map, save_feature_importance, \
-        save_json_report, save_confusion_summary
+    from ev_ml_predictor import (
+        parse_osm, build_training_data, train_model, load_model,
+        build_grid, predict_map, save_prediction_map,
+        save_feature_importance, save_json_report, save_cv_scores,
+        SpatialIndex, MODEL_FILE
+    )
+    import pandas as pd
+
+    clf = None
+    cv_scores = None
+
+    # ── Training ──
+    if do_train:
+        if not os.path.exists(csv_path):
+            print(f"ERROR: CSV not found: {csv_path}")
+            return None
+        print(f"[1/5] Loading EV station CSV: {csv_path}")
+        ev_df = pd.read_csv(csv_path)
+        X, y = build_training_data(ev_df, output_dir)
+        clf, cv_scores = train_model(X, y, output_dir)
+        save_cv_scores(cv_scores, output_dir)
+
+    # ── Prediction ──
+    if not os.path.exists(osm_path):
+        if do_train:
+            print(f"\n✅  Training complete! Model saved to {output_dir}/{MODEL_FILE}")
+            print(f"  To predict: python main.py --osm <your_map.osm>")
+            return None
+        else:
+            print(f"ERROR: OSM file not found: {osm_path}")
+            return None
+
+    if clf is None:
+        clf = load_model(output_dir)
+        if clf is None:
+            print(f"ERROR: No trained model found. Train first with --train flag.")
+            return None
 
     nodes_dict, ways, bbox = parse_osm(osm_path)
-    ev_df = load_ev_stations(csv_path)
+    way_index = SpatialIndex(ways)
+    node_items = [{"lat": v[0], "lon": v[1], "tags": v[2]}
+                  for v in nodes_dict.values()]
+    node_index = SpatialIndex(node_items)
 
-    X, y, cells, way_index, node_index, all_ev_lats, all_ev_lons = \
-        build_training_data(ways, nodes_dict, ev_df, bbox)
+    cells = build_grid(bbox)
+    print(f"   Grid cells: {len(cells):,}")
+    probs = predict_map(clf, cells, way_index, node_index)
 
-    clf = train_model(X, y)
-    probs = predict_map(clf, cells, way_index, node_index,
-                        all_ev_lats, all_ev_lons)
+    # Load EV CSV for overlay
+    ev_df = None
+    if os.path.exists(csv_path):
+        ev_df = pd.read_csv(csv_path)
+        ev_df.columns = [c.strip().lower() for c in ev_df.columns]
+        if "lattitude" in ev_df.columns:
+            ev_df.rename(columns={"lattitude": "latitude"}, inplace=True)
 
     dedup = save_prediction_map(cells, probs, bbox, ways, output_dir, ev_df)
     save_feature_importance(clf, output_dir)
     candidates = save_json_report(dedup, output_dir)
-    save_confusion_summary(clf, X, y, output_dir)
+
+    if cv_scores is not None:
+        save_cv_scores(cv_scores, output_dir)
 
     print("\n✅  Phase 2 complete. Top ML-predicted locations:")
     for c in candidates[:5]:
@@ -93,17 +140,13 @@ def main():
                     help="Path to EV stations CSV (default: ev-charging-stations-india.csv)")
     ap.add_argument("--output", default="./output",
                     help="Output directory (default: ./output)")
+    ap.add_argument("--train", action="store_true",
+                    help="Train ML model from real EV data via Overpass API (needs internet)")
     ap.add_argument("--skip-ml", action="store_true",
                     help="Skip the ML prediction phase (run only multispectral)")
     ap.add_argument("--skip-multispectral", action="store_true",
                     help="Skip the multispectral phase (run only ML)")
     args = ap.parse_args()
-
-    # Validate inputs
-    if not os.path.exists(args.osm):
-        sys.exit(f"ERROR: OSM file not found: {args.osm}")
-    if not args.skip_ml and not os.path.exists(args.csv):
-        sys.exit(f"ERROR: CSV file not found: {args.csv}")
 
     os.makedirs(args.output, exist_ok=True)
     start = time.time()
@@ -114,16 +157,18 @@ def main():
     print(f"  OSM file : {args.osm}")
     print(f"  CSV file : {args.csv}")
     print(f"  Output   : {args.output}")
+    if args.train:
+        print(f"  Mode     : TRAINING + PREDICTION")
 
     # Phase 1
-    if not args.skip_multispectral:
+    if not args.skip_multispectral and os.path.exists(args.osm):
         run_multispectral(args.osm, args.output)
-    else:
+    elif args.skip_multispectral:
         print("\n⏭  Skipping Phase 1 (multispectral classification)")
 
     # Phase 2
     if not args.skip_ml:
-        run_ml_predictor(args.osm, args.csv, args.output)
+        run_ml_predictor(args.osm, args.csv, args.output, do_train=args.train)
     else:
         print("\n⏭  Skipping Phase 2 (ML prediction)")
 
