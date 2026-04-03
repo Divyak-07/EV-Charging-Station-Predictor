@@ -159,7 +159,7 @@ pip install -r requirements.txt
 ```
 
 Key dependencies:
-- `numpy`, `matplotlib` — core mapping and visualisation
+- `numpy`, `matplotlib` — core mapping and visualisation,seaborn can also be used
 - `scikit-learn`, `pandas` — ML pipeline and data handling
 - `lxml` — faster XML parsing for large OSM files (optional but recommended)
 
