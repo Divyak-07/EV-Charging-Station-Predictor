@@ -1,0 +1,68 @@
+{
+  "best_model": "XGBoost",
+  "best_auc": 0.6897,
+  "training_samples": 432,
+  "n_features": 23,
+  "n_optuna_trials": 50,
+  "models": {
+    "Random Forest": {
+      "mean_auc": 0.6817,
+      "std_auc": 0.0589,
+      "fold_scores": [
+        0.7164,
+        0.6353,
+        0.7247,
+        0.5898,
+        0.7423
+      ],
+      "best_params": {
+        "n_estimators": 300,
+        "max_depth": 14,
+        "min_samples_leaf": 9,
+        "min_samples_split": 5
+      }
+    },
+    "XGBoost": {
+      "mean_auc": 0.6897,
+      "std_auc": 0.0698,
+      "fold_scores": [
+        0.665,
+        0.7524,
+        0.7018,
+        0.5687,
+        0.7608
+      ],
+      "best_params": {
+        "n_estimators": 250,
+        "max_depth": 9,
+        "learning_rate": 0.06774850204374368,
+        "subsample": 0.6129452790038628,
+        "colsample_bytree": 0.7242757678791986,
+        "reg_alpha": 0.17316637767211254,
+        "reg_lambda": 0.04741927229867316,
+        "scale_pos_weight": 2.3395418471662057
+      }
+    },
+    "LightGBM": {
+      "mean_auc": 0.6877,
+      "std_auc": 0.0645,
+      "fold_scores": [
+        0.7601,
+        0.6222,
+        0.7335,
+        0.5989,
+        0.7238
+      ],
+      "best_params": {
+        "n_estimators": 500,
+        "max_depth": 1,
+        "learning_rate": 0.026050431944310014,
+        "num_leaves": 37,
+        "subsample": 0.7716214236084014,
+        "colsample_bytree": 0.7543971629128274,
+        "reg_alpha": 9.72376840971584,
+        "reg_lambda": 0.40806072881474864
+      }
+    }
+  }
+}

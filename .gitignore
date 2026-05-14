@@ -7,7 +7,9 @@ __pycache__/
 *.pyo
 
 # Generated output (re-create by running the pipeline)
-output/
+output/*
+!output/*.joblib
+!output/model_comparison_report.json
 
 # Large OSM data files (too big for GitHub)
 planet_*.osm

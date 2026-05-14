@@ -32,7 +32,10 @@ COPY main.py .
 COPY model_comparison.py .
 COPY data_fetcher.py .
 COPY web/ web/
-COPY output/ output/
+
+# Copy trained model files
+RUN mkdir -p output
+COPY output/*.joblib output/
 
 # Create uploads directory
 RUN mkdir -p web/uploads
