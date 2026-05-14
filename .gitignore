@@ -13,6 +13,9 @@ output/
 planet_*.osm
 *.osm.gz
 
+# Environment variables (API keys — NEVER commit)
+.env
+
 # OS files
 .DS_Store
 Thumbs.db

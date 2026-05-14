@@ -149,7 +149,20 @@ def main():
                     help="Skip the ML prediction phase (run only multispectral)")
     ap.add_argument("--skip-multispectral", action="store_true",
                     help="Skip the multispectral phase (run only ML)")
+    ap.add_argument("--web", action="store_true",
+                    help="Start the interactive web dashboard")
+    ap.add_argument("--port", type=int, default=5000,
+                    help="Port for the web dashboard (default: 5000)")
     args = ap.parse_args()
+
+    # ── Web Dashboard Mode ──
+    if args.web:
+        from web.app import create_app
+        web_app = create_app(args.port)
+        print(f"\n  Dashboard running at: http://localhost:{args.port}")
+        print(f"  Press Ctrl+C to stop.\n")
+        web_app.run(host="0.0.0.0", port=args.port, debug=True)
+        return
 
     os.makedirs(args.output, exist_ok=True)
     start = time.time()

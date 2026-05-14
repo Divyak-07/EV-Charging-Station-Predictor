@@ -5,3 +5,9 @@ pandas
 joblib
 requests
 lxml
+flask
+flask-cors
+xgboost
+lightgbm
+optuna
+gunicorn

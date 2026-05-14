@@ -1,0 +1,38 @@
+# Virtual environments
+myenv/
+venv/
+.venv/
+__pycache__/
+
+# Data files (too large for container)
+data/
+*.osm
+*.osm.gz
+
+# Dev/IDE files
+.git/
+.gitignore
+.env
+.vscode/
+.idea/
+*.pyc
+
+# Reports and docs
+report/
+*.tex
+*.pdf
+*.md
+
+# Test files
+test_*.py
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Uploads (ephemeral)
+web/uploads/*
+
+# Notebook files
+notebooks/
+*.ipynb

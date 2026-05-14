@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: ev-station-predictor
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 web.app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+    healthCheckPath: /api/health
+    autoDeploy: true
