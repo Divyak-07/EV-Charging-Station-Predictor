@@ -16,7 +16,6 @@ This project implements an end-to-end ML pipeline that analyzes geographic featu
 - **23-Feature Spatial Analysis** — Extracts road density, POI proximity, parking availability, and infrastructure metrics within a 500m radius
 - **Multi-Model Comparison** — Random Forest, XGBoost, and LightGBM with Optuna Bayesian hyperparameter optimization
 - **Interactive Web Dashboard** — Flask + Leaflet.js interface with heatmap visualization, file upload, and draw-on-map analysis
-- **Global Dataset** — 17,900+ real EV station locations from 20 countries via OpenChargeMap API
 
 ## Architecture
 
@@ -103,7 +102,7 @@ docker run -p 5000:5000 ev-predictor
 | **XGBoost** | **0.6897** | **±0.0698** | **Best** |
 | LightGBM | 0.6877 | ±0.0645 | Competitive |
 
-*Trained on 432 samples from India. Performance expected to improve significantly with global dataset (17,900+ stations from 20 countries).*
+*Trained on 432 samples from real EV charging stations in India.*
 
 ## Project Structure
 
@@ -112,7 +111,7 @@ docker run -p 5000:5000 ev-predictor
 ├── ev_ml_predictor.py      # ML pipeline (training + prediction)
 ├── ev_campus_analyzer.py   # Multispectral OSM classification
 ├── model_comparison.py     # XGBoost/LightGBM/Optuna comparison
-├── data_fetcher.py         # OpenChargeMap API + Overpass extraction
+
 ├── web/
 │   ├── app.py              # Flask backend + REST API
 │   ├── templates/
@@ -124,8 +123,7 @@ docker run -p 5000:5000 ev-predictor
 │   ├── ev_model_best.joblib # Best trained model (XGBoost)
 │   ├── training_data.csv    # Training dataset
 │   └── *.png               # Generated charts
-├── data/
-│   └── global_ev_stations.csv  # 17,900+ stations from 20 countries
+
 ├── Dockerfile              # Multi-stage Docker build
 ├── render.yaml             # Render deployment blueprint
 └── requirements.txt

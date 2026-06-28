@@ -139,15 +139,7 @@ def _name_match(name, keywords):
     n = name.lower()
     return any(k in n for k in keywords)
 
-def _polygon_area_approx(xys):
-    """Shoelace — returns signed area (we just need magnitude)."""
-    if len(xys) < 3: return 0
-    a = 0.0
-    for i in range(len(xys)):
-        x1, y1 = xys[i]
-        x2, y2 = xys[(i+1) % len(xys)]
-        a += x1*y2 - x2*y1
-    return abs(a) / 2
+
 
 def classify_way(tags, xys=None):
     """
@@ -226,8 +218,7 @@ def classify_way(tags, xys=None):
     # ════ BARREN / OPEN LAND ════
     if lu in ("greenfield", "brownfield", "construction", "industrial"):
         return ("land_barren", C["land_barren"], 1.0, 1, "Barren / Open Land")
-    if nat == "scrub":
-        return ("land_barren", C["land_barren"], 1.0, 1, "Scrubland")
+
 
     # ════ RECREATION / SPORTS (non-building) ════
     if lu == "recreation_ground":
@@ -295,7 +286,7 @@ def classify_way(tags, xys=None):
             return ("bld_admin", C["bld_admin"], 0.8, 7, "Historic Structure")
 
         # ── GENERIC BUILDING (building=yes, no other info) ──
-        if bld == "yes" or bld:
+        if bld:
             return ("bld_generic", C["bld_generic"], 0.8, 6, "Building (Unclassified)")
 
     return (None, None, None, None, None)

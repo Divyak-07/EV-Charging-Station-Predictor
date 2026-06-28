@@ -122,8 +122,6 @@ def run_ml_predictor(osm_path, csv_path, output_dir, do_train=False):
     save_feature_importance(clf, output_dir)
     candidates = save_json_report(dedup, output_dir)
 
-    if cv_scores is not None:
-        save_cv_scores(cv_scores, output_dir)
 
     print("\n✅  Phase 2 complete. Top ML-predicted locations:")
     for c in candidates[:5]:
@@ -161,7 +159,7 @@ def main():
         web_app = create_app(args.port)
         print(f"\n  Dashboard running at: http://localhost:{args.port}")
         print(f"  Press Ctrl+C to stop.\n")
-        web_app.run(host="0.0.0.0", port=args.port, debug=True)
+        web_app.run(host="0.0.0.0", port=args.port, debug=False)
         return
 
     os.makedirs(args.output, exist_ok=True)

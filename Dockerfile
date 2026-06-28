@@ -27,10 +27,8 @@ COPY --from=builder /install /usr/local
 # Copy application code
 COPY ev_ml_predictor.py .
 COPY ev_campus_analyzer.py .
-COPY identity.py .
 COPY main.py .
 COPY model_comparison.py .
-COPY data_fetcher.py .
 COPY web/ web/
 
 # Copy trained model files

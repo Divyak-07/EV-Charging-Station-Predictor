@@ -67,7 +67,6 @@ warnings.filterwarnings("ignore", category=UserWarning)
 
 PROJECT_ROOT = Path(__file__).parent
 DEFAULT_DATA = PROJECT_ROOT / "output" / "training_data.csv"
-GLOBAL_DATA = PROJECT_ROOT / "data" / "global_training_data.csv"
 OUTPUT_DIR = PROJECT_ROOT / "output"
 
 # Plot style
@@ -458,12 +457,9 @@ def main():
     # Auto-detect data file
     if args.data:
         data_path = Path(args.data)
-    elif GLOBAL_DATA.exists():
-        data_path = GLOBAL_DATA
-        print(f"   Using global training data: {data_path}")
     else:
         data_path = DEFAULT_DATA
-        print(f"   Using default training data: {data_path}")
+        print(f"   Using training data: {data_path}")
 
     if not data_path.exists():
         sys.exit(f"ERROR: Training data not found: {data_path}\n"
