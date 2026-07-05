@@ -46,4 +46,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
     CMD python -c "import requests; requests.get('http://localhost:5000/api/health', timeout=5)" || exit 1
 
 # Production server
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "--timeout", "120", "web.app:app"]
+CMD ["uvicorn", "web.app:app", "--host", "0.0.0.0", "--port", "5000", "--workers", "2"]

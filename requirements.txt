@@ -4,9 +4,10 @@ scikit-learn
 pandas
 joblib
 requests
-flask
-flask-cors
+fastapi
+uvicorn[standard]
+python-multipart
+jinja2
 xgboost
 lightgbm
 optuna
-gunicorn

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-web/app.py - Flask backend for EV Charging Station Dashboard
+web/app.py - FastAPI backend for EV Charging Station Dashboard
 =============================================================
 Serves an interactive Leaflet.js map and exposes REST API endpoints
 for ML-based EV station suitability prediction.
 
 Usage:
-    python -m web.app                   # from project root
+    python -m uvicorn web.app:app --reload      # from project root
     python main.py --web                # via unified pipeline
 """
 
@@ -15,29 +15,41 @@ import os
 import sys
 import uuid
 from pathlib import Path
+from typing import Dict, Any
 
 # Add project root to path so we can import ev_ml_predictor
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from flask import Flask, request, jsonify, render_template, send_from_directory
-from flask_cors import CORS
+from fastapi import FastAPI, UploadFile, File, HTTPException, Request
+from fastapi.responses import JSONResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 import numpy as np
 
-app = Flask(__name__,
-            template_folder="templates",
-            static_folder="static")
-CORS(app)
+app = FastAPI(title="EV Charging Station Predictor API")
 
-app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024  # 50 MB upload limit
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Set up templates and static files
+app.mount("/static", StaticFiles(directory=str(Path(__file__).parent / "static")), name="static")
+templates = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
+
 UPLOAD_DIR = Path(__file__).parent / "uploads"
 UPLOAD_DIR.mkdir(exist_ok=True)
 
 # ── Global model reference (loaded once at startup) ───────────────────────
 _model = None
 _model_info = {}
-
 
 def get_model():
     """Load the ML model (singleton)."""
@@ -68,105 +80,89 @@ def get_model():
         )
 
     _model_info["model_type"] = type(_model).__name__
-    _model_info["n_features"] = _model.n_features_in_
+    _model_info["n_features"] = getattr(_model, "n_features_in_", 23)
     print(f"   Model loaded: {_model_info['model_file']} "
           f"({_model_info['model_type']}, {_model_info['n_features']} features)")
     return _model
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # ROUTES
 # ─────────────────────────────────────────────────────────────────────────────
 
-@app.route("/")
-def index():
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
     """Serve the dashboard."""
-    return render_template("index.html")
+    return templates.TemplateResponse(request=request, name="index.html")
 
-
-@app.route("/api/health")
-def health():
+@app.get("/api/health")
+async def health():
     """Health check endpoint."""
-    return jsonify({"status": "ok", "model_loaded": _model is not None})
+    return {"status": "ok", "model_loaded": _model is not None}
 
-
-@app.route("/api/model-info")
-def model_info():
+@app.get("/api/model-info")
+async def model_info():
     """Return model metadata."""
     try:
         get_model()
-        return jsonify({
+        return {
             "status": "ok",
             **_model_info,
-        })
+        }
     except Exception as e:
-        return jsonify({"status": "error", "message": str(e)}), 500
+        raise HTTPException(status_code=500, detail=str(e))
 
-
-@app.route("/api/predict", methods=["POST"])
-def predict():
+@app.post("/api/predict")
+async def predict(file: UploadFile = File(...)):
     """Accept an .osm file upload, run the prediction pipeline, return GeoJSON."""
-    if "file" not in request.files:
-        return jsonify({"error": "No file uploaded. Send a .osm file as 'file'."}), 400
-
-    file = request.files["file"]
     if not file.filename or not file.filename.lower().endswith(".osm"):
-        return jsonify({"error": "File must have .osm extension."}), 400
+        raise HTTPException(status_code=400, detail="File must have .osm extension.")
 
     # Save uploaded file temporarily
     upload_id = str(uuid.uuid4())[:8]
     upload_path = UPLOAD_DIR / f"{upload_id}_{file.filename}"
-    file.save(str(upload_path))
+    
+    with open(upload_path, "wb") as buffer:
+        content = await file.read()
+        buffer.write(content)
 
     try:
         clf = get_model()
         result = run_prediction(clf, str(upload_path))
-        return jsonify(result)
+        return result
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        raise HTTPException(status_code=500, detail=str(e))
     finally:
         # Clean up
         if upload_path.exists():
             upload_path.unlink()
 
+class BboxRequest(BaseModel):
+    south: float
+    west: float
+    north: float
+    east: float
 
-@app.route("/api/predict-bbox", methods=["POST"])
-def predict_bbox():
+@app.post("/api/predict-bbox")
+async def predict_bbox(data: BboxRequest):
     """Accept bounding box coordinates, download OSM via Overpass, predict."""
-    data = request.get_json()
-    if not data:
-        return jsonify({"error": "Send JSON with south, west, north, east."}), 400
-
-    required = ["south", "west", "north", "east"]
-    for key in required:
-        if key not in data:
-            return jsonify({"error": f"Missing required field: {key}"}), 400
-
-    try:
-        south = float(data["south"])
-        west = float(data["west"])
-        north = float(data["north"])
-        east = float(data["east"])
-    except (ValueError, TypeError):
-        return jsonify({"error": "Coordinates must be numbers."}), 400
-
-    # Validate bbox size (prevent massive downloads)
-    lat_span = north - south
-    lon_span = east - west
+    lat_span = data.north - data.south
+    lon_span = data.east - data.west
+    
     if lat_span > 0.1 or lon_span > 0.1:
-        return jsonify({
-            "error": "Bounding box too large. Max span is ~0.1 degrees (~11 km). "
-                     "Please draw a smaller area."
-        }), 400
+        raise HTTPException(
+            status_code=400, 
+            detail="Bounding box too large. Max span is ~0.1 degrees (~11 km). Please draw a smaller area."
+        )
 
     if lat_span <= 0 or lon_span <= 0:
-        return jsonify({"error": "Invalid bounding box (north must be > south, east > west)."}), 400
+        raise HTTPException(status_code=400, detail="Invalid bounding box (north must be > south, east > west).")
 
+    upload_path = None
     try:
         # Download OSM data via Overpass
-        osm_data = download_osm_bbox(south, west, north, east)
+        osm_data = download_osm_bbox(data.south, data.west, data.north, data.east)
         if not osm_data:
-            return jsonify({"error": "Failed to download OSM data for this area."}), 500
+            raise HTTPException(status_code=500, detail="Failed to download OSM data for this area.")
 
         # Save to temp file
         upload_id = str(uuid.uuid4())[:8]
@@ -175,13 +171,14 @@ def predict_bbox():
 
         clf = get_model()
         result = run_prediction(clf, str(upload_path))
-        return jsonify(result)
+        return result
+    except HTTPException:
+        raise
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        raise HTTPException(status_code=500, detail=str(e))
     finally:
-        if "upload_path" in locals() and upload_path.exists():
+        if upload_path and upload_path.exists():
             upload_path.unlink()
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # PREDICTION LOGIC
@@ -307,7 +304,6 @@ def run_prediction(clf, osm_path):
         },
     }
 
-
 def download_osm_bbox(south, west, north, east):
     """Download OSM data for a bounding box via Overpass API."""
     import requests
@@ -337,15 +333,14 @@ def download_osm_bbox(south, west, north, east):
             continue
     return None
 
-
 # ─────────────────────────────────────────────────────────────────────────────
 # STARTUP
 # ─────────────────────────────────────────────────────────────────────────────
 
 def create_app(port=5000):
-    """Initialize and return the Flask app."""
+    """Initialize and return the FastAPI app."""
     print("=" * 64)
-    print("  EV Charging Station Dashboard")
+    print("  EV Charging Station Dashboard (FastAPI)")
     print("=" * 64)
     try:
         get_model()
@@ -354,13 +349,12 @@ def create_app(port=5000):
         print("   Dashboard will start, but predictions will fail until model is available.")
     return app
 
-
 if __name__ == "__main__":
+    import uvicorn
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--port", type=int, default=5000)
-    parser.add_argument("--debug", action="store_true")
     args = parser.parse_args()
 
     create_app(args.port)
-    app.run(host="0.0.0.0", port=args.port, debug=args.debug)
+    uvicorn.run(app, host="0.0.0.0", port=args.port)

@@ -156,10 +156,11 @@ def main():
     # ── Web Dashboard Mode ──
     if args.web:
         from web.app import create_app
+        import uvicorn
         web_app = create_app(args.port)
         print(f"\n  Dashboard running at: http://localhost:{args.port}")
         print(f"  Press Ctrl+C to stop.\n")
-        web_app.run(host="0.0.0.0", port=args.port, debug=False)
+        uvicorn.run(web_app, host="0.0.0.0", port=args.port)
         return
 
     os.makedirs(args.output, exist_ok=True)
